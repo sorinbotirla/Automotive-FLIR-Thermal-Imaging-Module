@@ -1,0 +1,276 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>FLIR Cam</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="app">
+    <div class="preview">
+        <div class="preview-inner">
+            <img id="stream" src="/mjpeg" alt="stream">
+        </div>
+    </div>
+
+    <div class="controls">
+        <div class="card">
+            <div class="pane-nav">
+                <button type="button" class="pane-btn active" data-pane="theme">Theme</button>
+                <button type="button" class="pane-btn" data-pane="hotboxes">Hotboxes</button>
+                <button type="button" class="pane-btn" data-pane="ignore">Ignore</button>
+                <button type="button" class="pane-btn" data-pane="ffc">FFC</button>
+                <button type="button" class="pane-btn" data-pane="thermal">Thermal</button>
+                <button type="button" class="pane-btn" data-pane="camera">Camera</button>
+                <button type="button" class="pane-btn" data-pane="overlays">Overlays</button>
+            </div>
+
+            <div class="pane active" data-pane="theme">
+                <div class="pane-title">Theme</div>
+
+                <label class="chk">
+                    <input type="checkbox" id="cam_emboss">
+                    <span>Emboss</span>
+                </label>
+
+                <label class="select">
+                    <span>Thermal BG</span>
+                    <select id="bg_mode">
+                        <option value="black">black</option>
+                        <option value="grey">grey</option>
+                    </select>
+                </label>
+
+                <label class="slider">
+                    <span>Smoothing</span>
+                    <input type="range" id="thermal_smooth" min="0" max="10" step="1">
+                    <span class="val" id="thermal_smooth_val">0</span>
+                </label>
+
+                <label class="select">
+                    <span>Thermal Palette</span>
+                    <select id="thermal_palette">
+                        <option value="color">color</option>
+                        <option value="gated">gated</option>
+                        <option value="mono">mono</option>
+                    </select>
+                </label>
+
+                <label class="slider">
+                    <span>color_min_spread</span>
+                    <button type="button" class="step-btn" data-target="thermal_color_min_spread" data-dir="-1">-</button>
+                    <input type="range" id="thermal_color_min_spread" min="0" max="3000" step="50">
+                    <button type="button" class="step-btn" data-target="thermal_color_min_spread" data-dir="1">+</button>
+                    <span class="val" id="thermal_color_min_spread_val">900</span>
+                </label>
+
+                <label class="slider">
+                    <span>color_hot_percent</span>
+                    <button type="button" class="step-btn" data-target="thermal_color_hot_percent" data-dir="-1">-</button>
+                    <input type="range" id="thermal_color_hot_percent" min="0" max="100" step="1">
+                    <button type="button" class="step-btn" data-target="thermal_color_hot_percent" data-dir="1">+</button>
+                    <span class="val" id="thermal_color_hot_percent_val">75</span>
+                </label>
+            </div>
+
+            <div class="pane" data-pane="hotboxes">
+                <div class="pane-title">Hotboxes</div>
+
+                <label class="chk">
+                    <input type="checkbox" id="thermal_boxes">
+                    <span>Hot boxes</span>
+                </label>
+
+                <label class="slider">
+                    <span>box_min_area</span>
+                    <button type="button" class="step-btn" data-target="thermal_box_min_area" data-dir="-1">-</button>
+                    <input type="range" id="thermal_box_min_area" min="1" max="200" step="1">
+                    <button type="button" class="step-btn" data-target="thermal_box_min_area" data-dir="1">+</button>
+                    <span class="val" id="thermal_box_min_area_val">20</span>
+                </label>
+            </div>
+
+            <div class="pane" data-pane="ignore">
+                <div class="pane-title">Ignore</div>
+
+                <label class="chk">
+                    <input type="checkbox" id="thermal_ignore_enabled">
+                    <span>Ignore thermal area</span>
+                </label>
+
+                <label class="chk">
+                    <input type="checkbox" id="thermal_ignore_preview">
+                    <span>Show ignore area</span>
+                </label>
+
+                <label class="slider">
+                    <span>ignore_x</span>
+                    <button type="button" class="step-btn" data-target="thermal_ignore_x" data-dir="-1">-</button>
+                    <input type="range" id="thermal_ignore_x" min="0" max="79" step="1">
+                    <button type="button" class="step-btn" data-target="thermal_ignore_x" data-dir="1">+</button>
+                    <span class="val" id="thermal_ignore_x_val">65</span>
+                </label>
+
+                <label class="slider">
+                    <span>ignore_y</span>
+                    <button type="button" class="step-btn" data-target="thermal_ignore_y" data-dir="-1">-</button>
+                    <input type="range" id="thermal_ignore_y" min="0" max="59" step="1">
+                    <button type="button" class="step-btn" data-target="thermal_ignore_y" data-dir="1">+</button>
+                    <span class="val" id="thermal_ignore_y_val">42</span>
+                </label>
+
+                <label class="slider">
+                    <span>ignore_w</span>
+                    <button type="button" class="step-btn" data-target="thermal_ignore_w" data-dir="-1">-</button>
+                    <input type="range" id="thermal_ignore_w" min="0" max="80" step="1">
+                    <button type="button" class="step-btn" data-target="thermal_ignore_w" data-dir="1">+</button>
+                    <span class="val" id="thermal_ignore_w_val">15</span>
+                </label>
+
+                <label class="slider">
+                    <span>ignore_h</span>
+                    <button type="button" class="step-btn" data-target="thermal_ignore_h" data-dir="-1">-</button>
+                    <input type="range" id="thermal_ignore_h" min="0" max="60" step="1">
+                    <button type="button" class="step-btn" data-target="thermal_ignore_h" data-dir="1">+</button>
+                    <span class="val" id="thermal_ignore_h_val">18</span>
+                </label>
+            </div>
+
+            <div class="pane" data-pane="ffc">
+                <div class="pane-title">FFC</div>
+                <div class="ffc-row">
+                    <button type="button" class="cmd-btn" data-cmd="ffc off">FFC off</button>
+                    <button type="button" class="cmd-btn" data-cmd="ffc auto">FFC auto</button>
+                    <button type="button" class="cmd-btn" data-cmd="ffc run">FFC run</button>
+                </div>
+            </div>
+
+            <div class="pane" data-pane="thermal">
+                <div class="pane-title">Thermal</div>
+
+                <label class="chk">
+                    <input type="checkbox" id="thermal_enabled">
+                    <span>Thermal</span>
+                </label>
+
+                <label class="slider">
+                    <span>offset_x</span>
+                    <button type="button" class="step-btn" data-target="th_offx" data-dir="-1">-</button>
+                    <input type="range" id="th_offx" min="-300" max="300" step="1">
+                    <button type="button" class="step-btn" data-target="th_offx" data-dir="1">+</button>
+                    <span class="val" id="th_offx_val">0</span>
+                </label>
+
+                <label class="slider">
+                    <span>offset_y</span>
+                    <button type="button" class="step-btn" data-target="th_offy" data-dir="-1">-</button>
+                    <input type="range" id="th_offy" min="-300" max="300" step="1">
+                    <button type="button" class="step-btn" data-target="th_offy" data-dir="1">+</button>
+                    <span class="val" id="th_offy_val">0</span>
+                </label>
+
+                <label class="slider">
+                    <span>scale</span>
+                    <button type="button" class="step-btn" data-target="th_scale" data-dir="-1">-</button>
+                    <input type="range" id="th_scale" min="0.5" max="2.0" step="0.01">
+                    <button type="button" class="step-btn" data-target="th_scale" data-dir="1">+</button>
+                    <span class="val" id="th_scale_val">1</span>
+                </label>
+
+                <label class="slider">
+                    <span>opacity</span>
+                    <button type="button" class="step-btn" data-target="th_opacity" data-dir="-1">-</button>
+                    <input type="range" id="th_opacity" min="0" max="1" step="0.01">
+                    <button type="button" class="step-btn" data-target="th_opacity" data-dir="1">+</button>
+                    <span class="val" id="th_opacity_val">1</span>
+                </label>
+
+                <label class="slider">
+                    <span>rotate_deg</span>
+                    <button type="button" class="step-btn" data-target="th_rot" data-dir="-1">-</button>
+                    <input type="range" id="th_rot" min="-30" max="30" step="1">
+                    <button type="button" class="step-btn" data-target="th_rot" data-dir="1">+</button>
+                    <span class="val" id="th_rot_val">0</span>
+                </label>
+            </div>
+
+            <div class="pane" data-pane="camera">
+                <div class="pane-title">Camera</div>
+
+                <label class="chk">
+                    <input type="checkbox" id="cam_enabled">
+                    <span>Camera</span>
+                </label>
+
+                <label class="slider">
+                    <span>offset_x</span>
+                    <button type="button" class="step-btn" data-target="cam_offx" data-dir="-1">-</button>
+                    <input type="range" id="cam_offx" min="-300" max="300" step="1">
+                    <button type="button" class="step-btn" data-target="cam_offx" data-dir="1">+</button>
+                    <span class="val" id="cam_offx_val">0</span>
+                </label>
+
+                <label class="slider">
+                    <span>offset_y</span>
+                    <button type="button" class="step-btn" data-target="cam_offy" data-dir="-1">-</button>
+                    <input type="range" id="cam_offy" min="-300" max="300" step="1">
+                    <button type="button" class="step-btn" data-target="cam_offy" data-dir="1">+</button>
+                    <span class="val" id="cam_offy_val">0</span>
+                </label>
+
+                <label class="slider">
+                    <span>scale</span>
+                    <button type="button" class="step-btn" data-target="cam_scale" data-dir="-1">-</button>
+                    <input type="range" id="cam_scale" min="0.5" max="2.0" step="0.01">
+                    <button type="button" class="step-btn" data-target="cam_scale" data-dir="1">+</button>
+                    <span class="val" id="cam_scale_val">1</span>
+                </label>
+
+                <label class="slider">
+                    <span>opacity</span>
+                    <button type="button" class="step-btn" data-target="cam_opacity" data-dir="-1">-</button>
+                    <input type="range" id="cam_opacity" min="0" max="1" step="0.01">
+                    <button type="button" class="step-btn" data-target="cam_opacity" data-dir="1">+</button>
+                    <span class="val" id="cam_opacity_val">1</span>
+                </label>
+
+                <label class="slider">
+                    <span>rotate_deg</span>
+                    <button type="button" class="step-btn" data-target="cam_rot" data-dir="-1">-</button>
+                    <input type="range" id="cam_rot" min="-360" max="360" step="1">
+                    <button type="button" class="step-btn" data-target="cam_rot" data-dir="1">+</button>
+                    <span class="val" id="cam_rot_val">0</span>
+                </label>
+            </div>
+
+            <div class="pane" data-pane="overlays">
+                <div class="pane-title">Overlays</div>
+
+                <div class="upload-row">
+                    <input type="file" id="overlay_files" accept="image/png,image/jpeg" multiple>
+                    <button type="button" id="btn_upload_overlays">Upload</button>
+                </div>
+
+                <div id="overlay_list" class="overlay-list"></div>
+            </div>
+
+            <div class="row footer">
+                <button id="btn_reload">Reload stream</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/app.js"></script>
+<script>
+    window.FlirCam = new FlirCam();
+    $(window).on("load", function () {
+        window.FlirCam.init();
+    });
+</script>
+
+</body>
+</html>

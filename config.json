@@ -1,0 +1,70 @@
+{
+    "background": "black",
+    "overlays": [
+        {
+            "enabled": true,
+            "file": "interfaz_logo_1779424528325_0.png",
+            "h": 28,
+            "opacity": 1,
+            "w": 112,
+            "x": 220,
+            "y": 540
+        },
+        {
+            "enabled": true,
+            "file": "overlay_1779424641181_0.png",
+            "h": 63,
+            "opacity": 1,
+            "w": 719,
+            "x": 0,
+            "y": 507
+        },
+        {
+            "enabled": true,
+            "file": "flir_logo_1779424893889_0.png",
+            "h": 36,
+            "opacity": 1,
+            "w": 109,
+            "x": 396,
+            "y": 533
+        }
+    ],
+    "thermal": {
+        "box_min_area": 42,
+        "boxes": true,
+        "color_gate": true,
+        "color_hot_percent": 32,
+        "color_min_spread": 50,
+        "enabled": true,
+        "flip_h": false,
+        "flip_v": false,
+        "ignore_enabled": true,
+        "ignore_h": 17,
+        "ignore_preview": false,
+        "ignore_w": 16,
+        "ignore_x": 65,
+        "ignore_y": 45,
+        "offset_x": 0,
+        "offset_y": 0,
+        "opacity": 0.71,
+        "palette": "gated",
+        "rotate_deg": 0,
+        "scale": 1.03,
+        "smooth": 0
+    },
+    "usb_cam": {
+        "device": "/dev/video0",
+        "emboss": true,
+        "enabled": true,
+        "flip_h": false,
+        "flip_v": false,
+        "fps": 15,
+        "height": 480,
+        "offset_x": -51,
+        "offset_y": 70,
+        "opacity": 1,
+        "rotate_deg": -360,
+        "scale": 0.87,
+        "width": 640
+    }
+}

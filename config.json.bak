@@ -1,0 +1,35 @@
+{
+    "background": "grey",
+    "thermal": {
+        "box_min_area": 36,
+        "boxes": true,
+        "color_gate": true,
+        "color_hot_percent": 32,
+        "color_min_spread": 50,
+        "enabled": true,
+        "flip_h": false,
+        "flip_v": false,
+        "offset_x": 0,
+        "offset_y": 0,
+        "opacity": 1,
+        "palette": "gated",
+        "rotate_deg": 0,
+        "scale": 1.03,
+        "smooth": 0
+    },
+    "usb_cam": {
+        "device": "/dev/video0",
+        "emboss": false,
+        "enabled": true,
+        "flip_h": false,
+        "flip_v": false,
+        "fps": 15,
+        "height": 480,
+        "offset_x": -51,
+        "offset_y": 70,
+        "opacity": 0,
+        "rotate_deg": -360,
+        "scale": 0.87,
+        "width": 640
+    }
+}

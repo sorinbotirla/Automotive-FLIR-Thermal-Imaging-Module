@@ -1,0 +1,29 @@
+{
+    "background": "black",
+    "thermal": {
+        "enabled": true,
+        "flip_h": false,
+        "flip_v": false,
+        "offset_x": 20,
+        "offset_y": 10,
+        "opacity": 1,
+        "rotate_deg": 0,
+        "scale": 1.05,
+        "smooth": 6
+    },
+    "usb_cam": {
+        "device": "/dev/video0",
+        "emboss": false,
+        "enabled": true,
+        "flip_h": false,
+        "flip_v": false,
+        "fps": 15,
+        "height": 480,
+        "offset_x": 0,
+        "offset_y": 0,
+        "opacity": 0.5,
+        "rotate_deg": 0,
+        "scale": 1,
+        "width": 640
+    }
+}
